@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.5' // 4.0.6 から 3.4.5 へ
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '3.3.5' // 4.0.6 から 3.4.5 へ
+	id 'io.spring.dependency-management' version '1.1.6'
 	id "org.openapi.generator" version "7.10.0" // 少し安定版に下げる
 }
 
@@ -26,13 +26,13 @@ dependencies {
     // Swagger UI / OpenAPI 3 Annotations
 	implementation 'io.swagger.core.v3:swagger-annotations:2.2.20'
 	// もし Spring Boot で OpenAPI を使っているなら、これを追加するのが一般的です
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 	// バリデーションの本体（Spring Boot 3.x の場合）
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 // MyBatis も 3.x 用の最新版に
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'com.h2database:h2'
 	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
