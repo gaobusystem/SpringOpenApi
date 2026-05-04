@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
+
 @RestController
 @RequiredArgsConstructor
 public class TasksController implements TasksApi {
@@ -31,7 +33,7 @@ public class TasksController implements TasksApi {
         dto.setId(entity.getId());
         dto.setTitle(entity.getTitle());
         return ResponseEntity.
-                status(HttpStatus.CREATED).
+                created(URI.create("/tasks/"+ dto.getId())).
                 body(dto);
     }
 
