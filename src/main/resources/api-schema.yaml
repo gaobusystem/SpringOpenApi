@@ -28,12 +28,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                title:
-                  type: string
-              required:
-                - title
+              $ref: "#/components/schemas/TaskForm"
       responses:
         '201':
           description: "Created"
@@ -71,6 +66,14 @@ paths:
                 $ref: "#/components/schemas/ResourceNotFoundError"
 components:
   schemas:
+    TaskForm:
+      type: object
+      properties:
+        title:
+          type: string
+          description: "作成されるタスクのタイトル"
+      required:
+        - title
     TaskDTO:
       type: object
       properties:
@@ -98,4 +101,5 @@ components:
       required:
         - title
         - detail
+
 
