@@ -24,9 +24,13 @@ public class TasksController implements TasksApi {
     }
 
     @Override
-    public ResponseEntity<Void> createTask(com.example.todo_api.model.CreateTaskRequest createTaskRequest){
-        // 受け取った createTaskRequest を使ってサービスを呼び出す処理などをここに書く
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<TaskDTO> createTask(com.example.todo_api.model.CreateTaskRequest createTaskRequest){        var dto = new TaskDTO();
+        var dto = new TaskDTO();
+        dto.setId(99L);
+        dto.setTitle("created!");
+        return ResponseEntity.
+                status(HttpStatus.CREATED).
+                build(dto);
     }
 
 }
