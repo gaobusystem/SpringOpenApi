@@ -1,0 +1,75 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5' // 4.0.6 から 3.4.5 へ
+	id 'io.spring.dependency-management' version '1.1.7'
+	id "org.openapi.generator" version "7.10.0" // 少し安定版に下げる
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+// webmvc ではなく、標準的な web スターターに戻す
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Swagger UI / OpenAPI 3 Annotations
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.20'
+	// もし Spring Boot で OpenAPI を使っているなら、これを追加するのが一般的です
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	// バリデーションの本体（Spring Boot 3.x の場合）
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+// MyBatis も 3.x 用の最新版に
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'com.h2database:h2'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+}
+openApiGenerate {
+	generatorName = "spring" // または java
+	library = "spring-boot"
+	configOptions = [
+			// これを true にすると javax ではなく jakarta が使われます
+			useJakartaEe: "true"
+	]
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+task buildApiDoc(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName.set("html")
+	inputSpec.set("$rootDir/src/main/resources/api-schema.yaml")
+	// layout.buildDirectory ではなく、単純な文字列パスを使用する
+	outputDir.set("${buildDir}/apidoc")
+}
+
+task buildSpringServer(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+	generatorName.set("spring")
+	inputSpec.set("$rootDir/src/main/resources/api-schema.yaml".toString())
+	outputDir.set(layout.buildDirectory.dir("spring").get().asFile.path)
+	apiPackage.set("com.example.todoapi.controller")
+	modelPackage.set("com.example.todo_api.model")
+
+	// ここを修正：既存の interfaceOnly に加えて useJakartaEe を追加
+	configOptions.set([
+			interfaceOnly: "true",
+			useJakartaEe: "true"  // ← これを追加！
+	])
+}
+
+compileJava.dependsOn tasks.buildSpringServer
+sourceSets.main.java.srcDir layout.buildDirectory.dir("spring/src/main/java")
