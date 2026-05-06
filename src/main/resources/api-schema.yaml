@@ -83,6 +83,8 @@ components:
         title:
           type: string
           description: "作成されるタスクのタイトル"
+          maxLength: 256
+          minLength: 1
       required:
         - title
     TaskDTO:
@@ -122,7 +124,7 @@ components:
           default: "Bad Request"
         detail:
           type: string
-          description: "リクエストが不正です。正しいリクエストでリトライしてください"
+          default: "リクエストが不正です。正しいリクエストでリトライしてください"
         invalid-params:
           type: array
           items:
