@@ -2,6 +2,7 @@ package com.example.todoapi.controller.task;
 
 import com.example.todo_api.model.TaskDTO;
 import com.example.todo_api.model.TaskForm;
+import com.example.todo_api.model.TaskListDTO;
 import com.example.todoapi.controller.TasksApi;
 import com.example.todoapi.service.task.TaskService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,7 +40,10 @@ public class TasksController implements TasksApi {
     }
 
     @Override
-    public ResponseEntity<TaskDTO> ListTask(){
+    public ResponseEntity<TaskListDTO> listTasks(){
+        var dto = new TaskListDTO();
+        dto.setResults(List.of(new TaskDTO(), new TaskDTO()));
+
         return ResponseEntity.
                 ok().
                 build();

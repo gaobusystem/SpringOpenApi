@@ -20,7 +20,7 @@ paths:
     get:
       summary: "タスク一覧取得"
       description: "タスクの一覧を取得します"
-      operationId: ListTasks
+      operationId: listTasks
       tags:
         - tasks
       responses:
