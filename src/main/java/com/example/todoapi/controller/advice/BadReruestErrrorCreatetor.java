@@ -2,6 +2,7 @@ package com.example.todoapi.controller.advice;
 
 import com.example.todo_api.model.BadRequestError;
 import com.example.todo_api.model.InvalidParam;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -28,5 +29,9 @@ public class BadReruestErrrorCreatetor {
         invalidParam.setName(fieldError.getField());
         invalidParam.setReason(fieldError.getDefaultMessage());
         return invalidParam;
+    }
+
+    public static BadRequestError form(ConstraintViolationException ex) {
+        return new BadRequestError(); //TODO
     }
 }
