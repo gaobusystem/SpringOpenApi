@@ -37,4 +37,10 @@ public class TasksController implements TasksApi {
                 body(dto);
     }
 
+    @Override
+    public ResponseEntity<TaskDTO> ListTask(){
+        return ResponseEntity.
+                ok().
+                build();
+    }
 }
