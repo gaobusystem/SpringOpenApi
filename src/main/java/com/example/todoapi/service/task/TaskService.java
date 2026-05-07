@@ -27,8 +27,8 @@ public class TaskService {
         return new TaskEntity(record.getId(), record.getTitle());
     }
 
-    public List<TaskEntity> find() {
-        return taskRepository.selectList()
+    public List<TaskEntity> find(int limit, long offset) {
+        return taskRepository.selectList(limit, offset)
                 .stream()
                 .map(record -> new TaskEntity(record.getId(), record.getTitle()))
                 .collect(Collectors.toList());
