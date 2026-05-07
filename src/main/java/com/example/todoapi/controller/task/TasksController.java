@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,11 +42,19 @@ public class TasksController implements TasksApi {
 
     @Override
     public ResponseEntity<TaskListDTO> listTasks(){
+        var entityList = taskService.find();
+        var dtoList = entityList.stream()
+                .map(taskEntity -> {
+                    var taskDTO = new TaskDTO();
+                    taskDTO.setId(taskEntity.getId());
+                    taskDTO.setTitle(taskEntity.getTitle());
+                    return taskDTO;
+                })
+                .collect(Collectors.toList());
         var dto = new TaskListDTO();
-        dto.setResults(List.of(new TaskDTO(), new TaskDTO()));
+        dto.setResults(dtoList);
 
         return ResponseEntity.
-                ok().
-                build();
+                ok(dto);
     }
 }
