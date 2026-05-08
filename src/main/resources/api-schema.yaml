@@ -131,7 +131,7 @@ paths:
             minimum: 1
       responses:
         '200':
-          description: OK     
+          description: OK
 components:
   schemas:
     TaskForm:

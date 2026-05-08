@@ -63,4 +63,9 @@ public class TasksController implements TasksApi {
         return taskDTO;
     }
 
+    @Override
+    public ResponseEntity<Void> editTask(Long taskId) {
+        return ResponseEntity.
+                ok().build();
+    }
 }
