@@ -70,4 +70,10 @@ public class TasksController implements TasksApi {
         return ResponseEntity.
                 ok(dto);
     }
+
+    @Override
+    public ResponseEntity<TaskDTO> deleteTask(Long taskId) {
+        return ResponseEntity.
+                noContent().build();
+    }
 }
