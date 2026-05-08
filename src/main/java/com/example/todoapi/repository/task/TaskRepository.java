@@ -1,9 +1,6 @@
 package com.example.todoapi.repository.task;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,5 +18,6 @@ public interface TaskRepository {
     @Insert("Insert into tasks (title) values (#{title})")
     void insert(TaskRecord record);
 
-
+    @Update("update tasks set title = #{title} where id = #{id}")
+    void update(TaskRecord taskRecord);
 }
