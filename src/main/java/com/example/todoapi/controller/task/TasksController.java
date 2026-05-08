@@ -73,6 +73,7 @@ public class TasksController implements TasksApi {
 
     @Override
     public ResponseEntity<TaskDTO> deleteTask(Long taskId) {
+        taskService.delete(taskId);
         return ResponseEntity.
                 noContent().build();
     }

@@ -20,4 +20,7 @@ public interface TaskRepository {
 
     @Update("update tasks set title = #{title} where id = #{id}")
     void update(TaskRecord taskRecord);
+
+    @Delete("delete from tasks where id = #{id}")
+    void delete(Long taskId);
 }
